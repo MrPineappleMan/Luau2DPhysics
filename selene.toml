@@ -1,0 +1,16 @@
+std = "roblox"
+
+[rules]
+parenthese_conditions = "allow"
+multiple_statements = "allow"
+global_usage = "allow"
+undefined_variable = "allow"
+unused_variable = "allow"
+shadowing = "allow"
+empty_if = "allow"
+incorrect_standard_library_use = "warn"
+
+[config]
+unused_variable = {allow_unused_self = true}
+
+std = "roblox"
