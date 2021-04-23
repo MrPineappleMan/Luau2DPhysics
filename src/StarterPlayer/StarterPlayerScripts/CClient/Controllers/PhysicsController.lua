@@ -9,8 +9,10 @@ function PhysicsController:Update(dt)
     
 end
 
-function PhysicsController:__checkForUpdate()
-    
+function PhysicsController:__checkForCollisions()
+    for _,object in pairs(self.__active) do
+        
+    end
 end
 
 function PhysicsController:__broadCheck()
