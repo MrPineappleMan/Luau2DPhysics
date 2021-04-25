@@ -7,8 +7,6 @@ local Checks = {
 }
 
 function Ball:CheckCollisionWithBox(ballObj,boxObj)
-    local isColliding = false
-
     --// Note Position is relative to the bottom left position of the grid
     --[[
         [1] = Left
@@ -41,7 +39,14 @@ function Ball:CheckCollisionWithBox(ballObj,boxObj)
 end
 
 function Ball:ResolveWithBox(ballObj,boxObj,collisionInfo)
-    
+    for _,side in pairs(collisionInfo) do
+        local velocity = ballObj.Velocity
+        if (side == 1) or (side == 3) then
+            ballObj.Velocity = Vector2.new(-velocity.X,velocity.Y)
+        elseif  (side == 2) or (side == 4) then
+            ballObj.Velocity = Vector2.new(velocity.X,-velocity.Y)
+        end
+    end
 end
 
 function Ball:CheckWithBall()

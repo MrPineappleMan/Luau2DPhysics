@@ -1,12 +1,17 @@
+local Knit = require(game:GetService("ReplicatedStorage").Knit)
+
 local HttpService = game:GetService("HttpService")
+local PhysicsChecks = require(Knit.Shared.Utils.PhysicsChecks)
 
 local PhysicsObject = {}
 PhysicsObject.__index = PhysicsObject
 
 
 function PhysicsObject.new(config)
+    assert(config.Type,"Type is nil... You must specify what the object type is!")
+    assert(PhysicsChecks[config.Type],string.format("%s is not a valid type!",tostring(config.Type)))
     local self = setmetatable({
-        ["Type"] = type,
+        ["Type"] = config.Type,
         ["Id"] = HttpService:GenerateGUID(false),
 
         ["Position"] = config.Position or Vector2.new(),
