@@ -9,14 +9,6 @@ local Roact
 local e 
 local Grid 
 
-function UIController:SetStart(startPos)
-    self.StartPosition = startPos
-end
-
-function UIController:SetEnd(endPos)
-    self.EndPosition = endPos
-end
-
 function UIController:KnitStart()
 
 end

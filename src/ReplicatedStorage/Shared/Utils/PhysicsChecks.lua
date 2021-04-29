@@ -21,11 +21,11 @@ function Ball:CheckCollisionWithBox(ballObj,boxObj)
 
     for index,ballBound in pairs(ballBounds) do
        if (index == 1) or (index == 4) then
-            if ballBound < boxBounds[index] then
+            if ballBound <= boxBounds[index] then
                 table.insert(sidesOfCollision,index)
             end
         elseif (index == 2) or (index == 3) then
-            if ballBound > boxBounds[index] then
+            if ballBound >= boxBounds[index] then
                 table.insert(sidesOfCollision,index)
             end
        end

@@ -3,6 +3,8 @@ local Knit = require(game:GetService("ReplicatedStorage").Knit)
 local HttpService = game:GetService("HttpService")
 local PhysicsChecks = require(Knit.Shared.Utils.PhysicsChecks)
 
+local Signal = require(Knit.Shared.Utils.Signal)
+
 local PhysicsObject = {}
 PhysicsObject.__index = PhysicsObject
 
@@ -15,17 +17,23 @@ function PhysicsObject.new(config)
         ["Id"] = HttpService:GenerateGUID(false),
 
         ["Position"] = config.Position or Vector2.new(),
-        ["Velocity"] = config.Velocity or Vector2.new(),
-        ["Acceleration"] = Vector2.new(0,-1),--// This is gravity, position subtracts 10% the height of the grid
-        ["Size"] = config.Size or Vector2.new(1,1),
+        ["Velocity"] = config.Velocity or Vector2.new(0.1,0.05),
+        ["Acceleration"] = Vector2.new(0,0.1),--// This is gravity, position subtracts 10% the height of the grid
+        ["Size"] = config.Size or Vector2.new(0.1,0.1),
         ["Mass"] = 0,
-
+        ["Stepped"] = Signal.new(),
     }, PhysicsObject)
     return self
 end
 
-function PhysicsObject:CheckAndResolveCollisionWith(otherObject)
+function PhysicsObject:Step(dt)
+    self.Velocity = self.Velocity + self.Acceleration * dt
+    self.Position = self.Position + self.Velocity * dt
+    self.Stepped:Fire()
+end
 
+function PhysicsObject:CheckAndResolveCollisionWith(otherObject)
+    
 end
 
 function PhysicsObject:Destroy()
