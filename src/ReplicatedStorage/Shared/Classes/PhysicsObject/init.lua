@@ -33,7 +33,13 @@ function PhysicsObject:Step(dt)
 end
 
 function PhysicsObject:CheckAndResolveCollisionWith(otherObject)
-    
+    local check = PhysicsChecks:GetCheckFromTypes(self.Type, otherObject.Type)
+    local resolve = PhysicsChecks:GetResolveFromTypes(self.Type, otherObject.Type)
+
+    local collides,collisionInfo = check(self,otherObject)
+    if collides then
+        resolve(self,otherObject,collisionInfo)
+    end 
 end
 
 function PhysicsObject:Destroy()
