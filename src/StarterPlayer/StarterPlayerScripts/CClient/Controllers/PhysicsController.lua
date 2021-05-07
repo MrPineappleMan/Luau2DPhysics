@@ -25,33 +25,37 @@ function PhysicsController:AddObject(type: string)
     self.ObjectAdded:Fire(newObj)
 end
 
+--// Unfinished collission checking...
 function PhysicsController:__broadCheck()
     local potentialCollisions = {}
 end
 
-function PhysicsController:__narrowCheck(dt)
-    --[[ Every other object after the first one is checking if it collides with the first one
-        {
-            [1] = {firstObj,otherObjToCheckAgainst,otherObjToCheckAgainst,otherObjToCheckAgainst},
-            [2] = {firstObj,otherObjToCheckAgainst,otherObjToCheckAgainst,otherObjToCheckAgainst},
-        }
-    ]]
+
+--// Right now because there are only two bodies, we use the naive method
+function PhysicsController:__narrowCheck(dt) 
     for id,object in pairs(self.__objects) do --// This is naive method of collision detection, but this is good enough for my test
         for otherId,otherObj in pairs(self.__objects) do 
-            object:CheckAndResolveCollisionWith(otherObj)
+            if (not object.IsStatic) and (object ~= otherObj) then
+                object:CheckAndResolveCollisionWith(otherObj)
+            end
         end
     end
 end
 
 function PhysicsController:__updatePositions(dt)
-    for id,object in pairs(self.__objects) do --// This is naive method of collision detection, but this is good enough for my test
-        object:Step(dt)
+    for id,object in pairs(self.__objects) do
+        if (not object.IsStatic) then
+            object:Step(dt)
+        end
     end
 end
 
 function PhysicsController:KnitStart()
+    --// Arbitrarily wait...
+    wait(10)
     RunService.Heartbeat:Connect(function(dt)
         self:Update(dt)
+        self.Stepped:Fire()
     end)
 end
 
@@ -61,6 +65,7 @@ function PhysicsController:KnitInit()
     Signal = require(Knit.Shared.Utils.Signal)
 
     self.ObjectAdded = Signal.new()
+    self.Stepped = Signal.new()
 end
 
 
