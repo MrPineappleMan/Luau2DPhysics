@@ -32,19 +32,12 @@ function Ball.CheckCollisionWithBox(ballObj,boxObj)
 end
 
 function Ball.ResolveWithBox(ballObj,boxObj,collisionInfo)
-    print("RESOLVING!")
-    warn(collisionInfo)
     for index = 1,4 do
         if collisionInfo[index] then
             local velocity = ballObj.Velocity
             if (index == 1) or (index == 3) then
-                warn("Resolving with box: Left or Right")
-                warn("____________")
-                print(ballObj.Velocity)
                 ballObj.Velocity = Vector2.new(-velocity.X,velocity.Y)
-                print(ballObj.Velocity)
             elseif  (index == 2) or (index == 4) then
-                warn("Resolving with box: Top or Bottom")
                 ballObj.Velocity = Vector2.new(velocity.X,-velocity.Y)
             end
         end

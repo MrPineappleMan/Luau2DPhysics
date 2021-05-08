@@ -18,8 +18,8 @@ function PhysicsObject.new(config)
 
         ["LastPosition"] = config.Position or Vector2.new(500,500),
         ["Position"] = config.Position or Vector2.new(500,500),
-        ["Velocity"] = config.Velocity or Vector2.new(200,0),
-        ["Acceleration"] = Vector2.new(0,200 ),
+        ["Velocity"] = config.Velocity or Vector2.new(math.random(1,500),math.random(1,500)),
+        ["Acceleration"] = Vector2.new(0,400),
         ["Size"] = config.Size or Vector2.new(500,500),
         ["Mass"] = 0,
         ["Stepped"] = Signal.new(),
@@ -51,10 +51,10 @@ function PhysicsObject:UpdateBounds()
 end
 
 function PhysicsObject:Step(dt)
+    self.LastPosition = self.Position
     self.Velocity = self.Velocity + self.Acceleration * dt
     self.Position = self.Position + self.Velocity * dt
     self:UpdateBounds()
-    self.LastPosition = self.Position
     self.Stepped:Fire()
 end
 
