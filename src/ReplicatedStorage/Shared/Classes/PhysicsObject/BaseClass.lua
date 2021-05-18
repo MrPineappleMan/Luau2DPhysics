@@ -19,9 +19,9 @@ function PhysicsObject.new(config)
         ["LastPosition"] = config.Position or Vector2.new(500,500),
         ["Position"] = config.Position or Vector2.new(500,500),
         ["Velocity"] = config.Velocity or Vector2.new(math.random(1,500),math.random(1,500)),
-        ["Acceleration"] = Vector2.new(0,400),
+        ["Acceleration"] = Vector2.new(0,0),
         ["Size"] = config.Size or Vector2.new(500,500),
-        ["Mass"] = 0,
+        ["Mass"] = 1,
         ["Stepped"] = Signal.new(),
     }, PhysicsObject)
     self:UpdateBounds()
@@ -31,6 +31,14 @@ end
 function PhysicsObject:SetSize(newSize: Vector2)
     self.Size = newSize
     self:UpdateBounds()
+end
+
+function PhysicsObject:SetPosition(newPos: Vector2)
+    self.Position = newPos
+    self.LastPosition = newPos
+    self:UpdateBounds()
+
+    return self
 end
     --[[
         [1] = Left

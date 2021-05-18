@@ -23,6 +23,7 @@ function PhysicsController:AddObject(type: string)
 
     self.__objects[newObj.Id] = newObj
     self.ObjectAdded:Fire(newObj)
+    return newObj
 end
 
 --// Unfinished collission checking...
@@ -52,9 +53,15 @@ end
 
 function PhysicsController:KnitStart()
     --// Arbitrarily wait...
-    wait(10)
+    wait(5)
+
+    local scale = script:GetAttribute("StepScale")
+    script:GetAttributeChangedSignal("StepScale"):Connect(function()
+        scale = script:GetAttribute("StepScale")
+    end)
+
     RunService.Heartbeat:Connect(function(dt)
-        self:Update(dt)
+        self:Update(dt*scale)
         self.Stepped:Fire()
     end)
 end

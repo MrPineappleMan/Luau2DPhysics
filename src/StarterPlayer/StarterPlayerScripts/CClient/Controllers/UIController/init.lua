@@ -15,8 +15,13 @@ local Container
 function UIController:KnitStart()
     Roact.mount(e(Container),Players.LocalPlayer.PlayerGui)
 
-    PhysicsController:AddObject("Ball")
     PhysicsController:AddObject("Box")
+
+    PhysicsController:AddObject("Ball"):SetPosition(Vector2.new(500,600))
+    PhysicsController:AddObject("Ball"):SetPosition(Vector2.new(500,700))
+    PhysicsController:AddObject("Ball"):SetPosition(Vector2.new(500,400))
+
+    PhysicsController:AddObject("Ball"):SetPosition(Vector2.new(500,500))
 end
 
 
