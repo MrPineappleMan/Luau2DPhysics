@@ -68,7 +68,7 @@ end
 
 
 function PhysicsController:KnitInit()
-    PhysicsObject = require(Knit.Shared.Classes.PhysicsObject)
+    PhysicsObject = require(Knit.Client.Classes.PhysicsObject)
     Signal = require(Knit.Shared.Utils.Signal)
 
     self.ObjectAdded = Signal.new()

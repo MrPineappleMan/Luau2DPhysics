@@ -1,9 +1,9 @@
 local BaseClass = require(script.Parent.BaseClass)
 
-local Box = setmetatable({
+local BoxContainer = setmetatable({
 
 },BaseClass)
-Box.__index = Box
+BoxContainer.__index = BoxContainer
 
     --[[
         [1] = Left
@@ -11,11 +11,12 @@ Box.__index = Box
         [3] = Right
         [4] = Bottom
     ]]
-function Box.new(config)
+function BoxContainer.new(config)
     local base = BaseClass.new(config)
-    local self = setmetatable(base, Box)
+    local self = setmetatable(base, BoxContainer)
+
     self.IsStatic = true
     return self
 end
 
-return Box
+return BoxContainer
