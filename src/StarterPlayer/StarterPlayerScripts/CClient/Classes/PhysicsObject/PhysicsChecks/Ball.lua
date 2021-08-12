@@ -81,8 +81,6 @@ function Ball.CheckCollisionWithBall(ball: PhysicsObject, otherBall: PhysicsObje
     return false
 end
 
-
-
 function Ball.ResolveWithBall(ball: PhysicsObject,  otherBall: PhysicsObject, config: table)
     local v1 = ball.Velocity
     local m1 = ball.Mass
